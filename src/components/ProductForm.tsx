@@ -65,9 +65,10 @@ const ProductForm = ({ product, onSubmit }: Props) => {
         </TextField.Root>
         <ErrorMessage error={errors.price} />
       </Box>
-      <Box>
+      <Box data-testid="categoryId">
         <Controller
           name="categoryId"
+          
           control={control}
           render={({ field }) => (
             <Select.Root

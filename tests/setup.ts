@@ -17,3 +17,13 @@ afterAll(() => {worker.close()})
 
 // Reset handlers after each test `important for test isolation`
 afterEach(() => {worker.resetHandlers()})
+
+// Mock the ResizeObserver
+const ResizeObserverMock = vi.fn(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
+
+// Stub the global ResizeObserver
+vi.stubGlobal('ResizeObserver', ResizeObserverMock);
