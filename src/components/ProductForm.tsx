@@ -68,7 +68,6 @@ const ProductForm = ({ product, onSubmit }: Props) => {
       <Box data-testid="categoryId">
         <Controller
           name="categoryId"
-          
           control={control}
           render={({ field }) => (
             <Select.Root
