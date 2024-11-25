@@ -9,8 +9,6 @@ import { Theme } from "@radix-ui/themes";
 import { Categories } from "../../src/mocks";
 import { act } from "react-dom/test-utils";
 
-// Mock the `useCategories` hook
-
 vi.mock("../../src/hooks/useCategories", () => ({
   default: vi.fn(() => ({
     data: Categories,
@@ -35,16 +33,21 @@ const renderComponent = (props = {}) => {
     </ReactQueryProvider>
   );
   const categorySelect = screen.getByRole("combobox");
+  const nameInput = screen.getByPlaceholderText(/name/i);
+
+  const priceInput = screen.getByPlaceholderText(/price/i);
 
   return {
+    nameInput,
+    priceInput,
     categorySelect,
   };
 };
 
 it("should renders the form with all fields", async () => {
-  const { categorySelect } = renderComponent();
-  expect(screen.getByPlaceholderText(/name/i)).toBeInTheDocument();
-  expect(screen.getByPlaceholderText(/price/i)).toBeInTheDocument();
+  const { nameInput, priceInput, categorySelect } = renderComponent();
+  expect(nameInput).toBeInTheDocument();
+  expect(priceInput).toBeInTheDocument();
   expect(categorySelect).toBeInTheDocument();
   expect(screen.getByText);
 
@@ -52,8 +55,23 @@ it("should renders the form with all fields", async () => {
     const categoryOption = screen.getByText(category.name);
     expect(categoryOption).toBeInTheDocument();
     expect(categoryOption).toHaveValue(String(category.id));
+    expect(categoryOption).toHaveRole("option");
   });
   expect(screen.getByRole("button", { name: /submit/i })).toBeInTheDocument();
+});
+
+it("should renders the form with default values", async () => {
+  const product = {
+    name: "Pedro",
+    price: 10,
+    categoryId: Categories[0].id,
+  };
+  const { nameInput, priceInput, categorySelect } = renderComponent({
+    product,
+  });
+  expect(nameInput).toHaveValue(product.name);
+  expect(priceInput).toHaveValue(String(product.price));
+  expect(categorySelect).toHaveTextContent(Categories[0].name);
 });
 
 it("should allows user to fill out the form", async () => {
@@ -90,10 +108,7 @@ it("should displays validation errors for empty fields", async () => {
 });
 
 it("should submits the form successfully", async () => {
-  const { categorySelect } = renderComponent();
-
-  const nameInput = screen.getByPlaceholderText(/name/i);
-  const priceInput = screen.getByPlaceholderText(/price/i);
+  const { nameInput, priceInput, categorySelect } = renderComponent();
   const submitButton = screen.getByRole("button", { name: /submit/i });
 
   await userEvent.type(nameInput, "Test Product");
@@ -119,10 +134,8 @@ it("should handles submission errors gracefully", async () => {
   mockOnSubmit.mockRejectedValueOnce(new Error("Submission failed"));
   vi.spyOn(toast, "error");
 
-  const { categorySelect } = renderComponent();
+  const { nameInput, priceInput, categorySelect } = renderComponent();
 
-  const nameInput = screen.getByPlaceholderText(/name/i);
-  const priceInput = screen.getByPlaceholderText(/price/i);
   const submitButton = screen.getByRole("button", { name: /submit/i });
 
   await userEvent.type(nameInput, "Test Product");
