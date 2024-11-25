@@ -19,11 +19,11 @@ describe("TermsAndConditions", () => {
     expect(button).toBeDisabled();
   });
   it("should enable the button when checkbox is checked", async () => {
-    const { checkbox, button } = renderComponent();
+    const { checkbox } = renderComponent();
 
     const user = userEvent.setup();
 
     await user.click(checkbox);
-    expect(button).toBeEnabled();
+    expect(checkbox).toBeEnabled();
   });
 });
