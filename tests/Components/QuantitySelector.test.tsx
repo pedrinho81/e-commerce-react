@@ -1,133 +1,131 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Mock, vi } from "vitest";
 import QuantitySelector from "../../src/components/QuantitySelector";
-import { useCart } from "../../src/hooks/useCart";
 import { Product } from "../../src/entities";
-import { Products } from "../../src/mocks";
-
-vi.mock("../../src/hooks/useCart");
+import { CartProvider } from "../../src/providers/CartProvider";
 
 describe("QuantitySelector", () => {
-  const mockAddToCart = vi.fn();
-  const mockRemoveFromCart = vi.fn();
-  const mockGetItem = vi.fn();
-
-  const product: Product = { ...Products[0] };
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-
-    (useCart as Mock).mockReturnValue({
-      getItem: mockGetItem,
-      addToCart: mockAddToCart,
-      removeFromCart: mockRemoveFromCart,
-    });
-  });
-
   const renderComponent = () => {
-    const { rerender } = render(<QuantitySelector product={product} />);
-    const status = () => screen.getByRole("status");
-    const decrementButton = () => screen.getByRole("button", { name: "-" });
-    const incrementButton = () => screen.getByRole("button", { name: "+" });
-    const addButton = () =>
-      screen.getByRole("button", { name: /add to cart/i });
+    const product: Product = {
+      id: 1,
+      name: "Milk",
+      price: 5,
+      categoryId: 1,
+    };
+
+    render(
+      <CartProvider>
+        <QuantitySelector product={product} />
+      </CartProvider>
+    );
+
+    const getAddToCartButton = () =>
+      screen.queryByRole("button", {
+        name: /add to cart/i,
+      });
+
+    const getQuantityControls = () => ({
+      quantity: screen.queryByRole("status"),
+      decrementButton: screen.queryByRole("button", {
+        name: "-",
+      }),
+      incrementButton: screen.queryByRole("button", {
+        name: "+",
+      }),
+    });
+
+    const user = userEvent.setup();
+
+    const addToCart = async () => {
+      const button = getAddToCartButton();
+      await user.click(button!);
+    };
+
+    const incrementQuantity = async () => {
+      const { incrementButton } = getQuantityControls();
+      await user.click(incrementButton!);
+    };
+
+    const decrementQuantity = async () => {
+      const { decrementButton } = getQuantityControls();
+      await user.click(decrementButton!);
+    };
+
     return {
-      decrementButton,
-      incrementButton,
-      status,
-      addButton,
-      rerender,
+      getAddToCartButton,
+      getQuantityControls,
+      addToCart,
+      incrementQuantity,
+      decrementQuantity,
     };
   };
-  it("should renders 'Add to Cart' button when product is not in cart", () => {
-    mockGetItem.mockReturnValue(null);
 
-    const { addButton } = renderComponent();
-    expect(addButton()).toBeInTheDocument();
+  it("should render the Add to Cart button", () => {
+    const { getAddToCartButton } = renderComponent();
+
+    expect(getAddToCartButton()).toBeInTheDocument();
   });
 
-  it("should adds product to cart when 'Add to Cart' button is clicked", async () => {
-    mockGetItem.mockReturnValue(null);
+  it("should add the product to the cart", async () => {
+    const {
+      getAddToCartButton,
+      addToCart,
+      getQuantityControls,
+    } = renderComponent();
 
-    const { addButton } = renderComponent();
+    await addToCart();
 
-    await userEvent.click(addButton());
-
-    expect(mockAddToCart).toHaveBeenCalledWith(product);
+    const { quantity, incrementButton, decrementButton } =
+      getQuantityControls();
+    expect(quantity).toHaveTextContent("1");
+    expect(decrementButton).toBeInTheDocument();
+    expect(incrementButton).toBeInTheDocument();
+    expect(getAddToCartButton()).not.toBeInTheDocument();
   });
 
-  it("should display quantity controls after adding a product to the cart", async () => {
-    mockGetItem
-      .mockReturnValueOnce(null)
-      .mockReturnValue({ product, quantity: 1 });
-
-    const { addButton, rerender, decrementButton, status, incrementButton } =
+  it("should increment the quantity", async () => {
+    const { incrementQuantity, addToCart, getQuantityControls } =
       renderComponent();
+    await addToCart();
 
-    await userEvent.click(addButton());
+    await incrementQuantity();
 
-    rerender(<QuantitySelector product={product} />);
-
-    expect(mockGetItem).toHaveBeenCalledTimes(2);
-
-    expect(status()).toHaveTextContent("1");
-    expect(decrementButton()).toBeInTheDocument();
-    expect(incrementButton()).toBeInTheDocument();
+    const { quantity } = getQuantityControls();
+    expect(quantity).toHaveTextContent("2");
   });
 
-  it("should renders quantity controls when product is in cart", () => {
-    mockGetItem.mockReturnValue({ product, quantity: 2 });
+  it("should decrement the quantity", async () => {
+    const {
+      incrementQuantity,
+      decrementQuantity,
+      addToCart,
+      getQuantityControls,
+    } = renderComponent();
+    await addToCart();
+    await incrementQuantity();
 
-    const { decrementButton, status, incrementButton } = renderComponent();
+    await decrementQuantity();
 
-    expect(status()).toHaveTextContent("2");
-    expect(decrementButton()).toBeInTheDocument();
-    expect(incrementButton()).toBeInTheDocument();
+    const { quantity } = getQuantityControls();
+    expect(quantity).toHaveTextContent("1");
   });
 
-  it("should increases quantity when '+' button is clicked", async () => {
-    mockGetItem.mockReturnValue({ product, quantity: 2 });
+  it("should remove the product from the cart", async () => {
+    const {
+      getAddToCartButton,
+      decrementQuantity,
+      addToCart,
+      getQuantityControls,
+    } = renderComponent();
+    await addToCart();
 
-    const { incrementButton } = renderComponent();
+    await decrementQuantity();
 
-    await userEvent.click(incrementButton());
-
-    expect(mockAddToCart).toHaveBeenCalledWith(product);
-  });
-
-  it("should decreases quantity when '-' button is clicked", async () => {
-    mockGetItem.mockReturnValue({ product, quantity: 2 });
-
-    const { decrementButton } = renderComponent();
-
-    await userEvent.click(decrementButton());
-
-    expect(mockRemoveFromCart).toHaveBeenCalledWith(product);
-  });
-
-  it("should removes product from cart when quantity reaches zero", async () => {
-    mockGetItem.mockReturnValue({ product, quantity: 1 });
-
-    const { decrementButton } = renderComponent();
-
-    await userEvent.click(decrementButton());
-
-    expect(mockRemoveFromCart).toHaveBeenCalledWith(product);
-  });
-  it("should display add to cart button after removing a product from cart", async () => {
-    mockGetItem
-      .mockReturnValueOnce({ product, quantity: 1 })
-      .mockReturnValue(null);
-
-    const { addButton, rerender, decrementButton } = renderComponent();
-
-    await userEvent.click(decrementButton());
-
-    rerender(<QuantitySelector product={product} />);
-
-    expect(mockGetItem).toHaveBeenCalledTimes(2);
-
-    expect(addButton()).toBeInTheDocument();
+    const { incrementButton, decrementButton, quantity } =
+      getQuantityControls();
+    expect(quantity).not.toBeInTheDocument();
+    expect(decrementButton).not.toBeInTheDocument();
+    expect(incrementButton).not.toBeInTheDocument();
+    expect(getAddToCartButton()).toBeInTheDocument();
   });
 });

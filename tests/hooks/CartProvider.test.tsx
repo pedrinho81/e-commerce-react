@@ -1,10 +1,18 @@
 import { renderHook, act } from "@testing-library/react";
 import { useCart } from "../../src/hooks/useCart";
 import { CartProvider } from "../../src/providers/CartProvider";
-import { Products } from "../../src/mocks";
-
+import { db } from "../mocks/db";
+import { Product } from "../../src/entities";
 describe("CartProvider", () => {
-  const product = { ...Products[0] };
+  let product: Product; 
+
+  beforeAll(() => {
+    product = db.product.create();
+  })
+
+  afterAll(() => {
+    db.product.delete({ where: { id: { equals: product.id }}})
+  })
   it("should initializes with an empty cart", () => {
     const { result } = renderHook(() => useCart(), {
       wrapper: CartProvider,
@@ -43,13 +51,15 @@ describe("CartProvider", () => {
       wrapper: CartProvider,
     });
 
-    Products.forEach((product) => {
+    const anotherProduct = db.product.create();
       act(() => {
         result.current.addToCart(product);
       });
-    });
+      act(() => {
+        result.current.addToCart(anotherProduct);
+      });
 
-    expect(result.current.getItemCount()).toBe(Products.length);
+    expect(result.current.getItemCount()).toBe(db.product.getAll().length);
   });
 
   it("should correctly calculate item count for duplicate products", () => {
