@@ -3,7 +3,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { MdHome } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
-import AuthStatus from "./AuthStatus";
+import { AuthStatus } from "../features/Auth/Components/AuthStatus";
 import LanguageSelector from "./LanguageSelector";
 
 const NavBar = () => {

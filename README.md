@@ -13,7 +13,6 @@ This is a React app built with the following technologies and libraries:
 - RadixUI
 - React Router 
 - React Query  
-- Redux Toolkit 
 
 Please follow these instructions carefully to setup this project on your machine. 
 

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import AuthStatus from "../../src/components/AuthStatus";
+import { AuthStatus } from "../../src/features/Auth/Components/AuthStatus";
 import { mockAuthState } from "../utils";
 describe("AuthStatus", () => {
   it("should render the loading message while fetching the auth status", () => {
@@ -18,9 +18,7 @@ describe("AuthStatus", () => {
       user: undefined,
     });
     render(<AuthStatus />);
-    expect(
-      screen.getByRole("button", { name: /log in/i })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /log in/i })).toBeInTheDocument();
     expect(
       screen.queryByRole("button", { name: /log out/i })
     ).not.toBeInTheDocument();
