@@ -1,8 +1,8 @@
 import { Button, Flex, Text } from "@radix-ui/themes";
-import { useCart } from "../hooks/useCart";
-import { Product } from "../entities";
+import { useCart } from "../../../../hooks/useCart";
+import { Product } from "../../../../entities";
 
-const QuantitySelector = ({ product }: { product: Product }) => {
+export const QuantitySelector = ({ product }: { product: Product }) => {
   const { getItem, addToCart, removeFromCart } = useCart();
 
   const cartItem = getItem(product);
@@ -17,5 +17,3 @@ const QuantitySelector = ({ product }: { product: Product }) => {
     </Flex>
   );
 };
-
-export default QuantitySelector;

@@ -1,8 +1,8 @@
 import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { Product } from "../entities";
+import { Product } from "../../../../entities";
 
-const ProductList = () => {
+export const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -37,5 +37,3 @@ const ProductList = () => {
     </ul>
   );
 };
-
-export default ProductList;

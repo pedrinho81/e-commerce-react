@@ -3,7 +3,7 @@ import { Heading } from "@radix-ui/themes";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import ProductForm from "../../components/ProductForm";
+import { ProductForm } from "../../features/order/components/products/ProductForm";
 import useProduct from "../../hooks/useProduct";
 
 const EditProductPage = withAuthenticationRequired(() => {

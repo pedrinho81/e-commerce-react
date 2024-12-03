@@ -2,7 +2,7 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { Heading } from "@radix-ui/themes";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import ProductForm from "../../components/ProductForm";
+import { ProductForm } from "../../features/order/components/products/ProductForm";
 
 const NewProductPage = withAuthenticationRequired(
   () => {

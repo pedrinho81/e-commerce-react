@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import QuantitySelector from "../components/QuantitySelector";
+import { QuantitySelector } from "../features/order/components/products/QuantitySelector";
 import { Category, Product } from "../entities";
 
 function BrowseProducts() {

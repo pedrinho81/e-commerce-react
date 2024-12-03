@@ -1,10 +1,13 @@
-import Label from "../components/Label";
+import { Text } from "@radix-ui/themes";
+import { Translate } from "../components/Translate";
 
 const HomePage = () => {
   return (
     <div>
       <h1>Home Page</h1>
-      <Label labelId="welcome" />
+      <Text>
+        <Translate labelId="welcome" />
+      </Text>
     </div>
   );
 };

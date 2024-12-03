@@ -2,7 +2,7 @@ import { Table } from "@radix-ui/themes";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import QuantitySelector from "../components/QuantitySelector";
+import { QuantitySelector } from "../features/order/components/products/QuantitySelector";
 import { Product } from "../entities";
 
 function ProductListPage() {

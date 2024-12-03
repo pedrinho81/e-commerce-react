@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Product } from "../entities";
+import { Product } from "../../../../entities";
 
-const ProductDetail = ({ productId }: { productId: number }) => {
+export const ProductDetail = ({ productId }: { productId: number }) => {
+  //TODO:: USE USEQUERY INSTEAD STATES AND USEEFFECTS
   const [product, setProduct] = useState<Product | undefined>(
     undefined
   );
@@ -37,4 +38,3 @@ const ProductDetail = ({ productId }: { productId: number }) => {
   );
 };
 
-export default ProductDetail;

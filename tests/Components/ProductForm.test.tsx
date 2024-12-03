@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import ProductForm from "../../src/components/ProductForm";
+import { ProductForm } from "../../src/features/order/components/products/ProductForm";
 import { Category, Product } from "../../src/entities";
 import AllProviders from "../AllProviders";
 import { db } from "../mocks/db";
@@ -18,12 +18,9 @@ describe("ProductForm", () => {
   });
 
   const renderComponent = (product?: Product) => {
-    render(
-      <ProductForm product={product} onSubmit={vi.fn()} />,
-      {
-        wrapper: AllProviders,
-      }
-    );
+    render(<ProductForm product={product} onSubmit={vi.fn()} />, {
+      wrapper: AllProviders,
+    });
 
     return {
       waitForFormToLoad: async () => {
@@ -42,8 +39,7 @@ describe("ProductForm", () => {
   it("should render form fields", async () => {
     const { waitForFormToLoad } = renderComponent();
 
-    const { nameInput, priceInput, categoryInput } =
-      await waitForFormToLoad();
+    const { nameInput, priceInput, categoryInput } = await waitForFormToLoad();
 
     expect(nameInput).toBeInTheDocument();
     expect(priceInput).toBeInTheDocument();
@@ -63,12 +59,8 @@ describe("ProductForm", () => {
     const inputs = await waitForFormToLoad();
 
     expect(inputs.nameInput).toHaveValue(product.name);
-    expect(inputs.priceInput).toHaveValue(
-      product.price.toString()
-    );
-    expect(inputs.categoryInput).toHaveTextContent(
-      category.name
-    );
+    expect(inputs.priceInput).toHaveValue(product.price.toString());
+    expect(inputs.categoryInput).toHaveTextContent(category.name);
   });
   it("should put focus on the name field", async () => {
     const { waitForFormToLoad } = renderComponent();
