@@ -1,53 +1,69 @@
-import { Badge, Flex, Text } from "@radix-ui/themes";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { MdHome } from "react-icons/md";
-import { Link, NavLink } from "react-router-dom";
-import { useCart } from "../hooks/useCart";
-import { AuthStatus } from "../features/Auth/Components/AuthStatus";
 import LanguageSelector from "./LanguageSelector";
+import { AuthStatus } from "../features/Auth/Components/AuthStatus";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { SearchInput } from "./SearchInput";
+import { HamburgIcon } from "./icons/HamburgIcon";
+import { SearchIcon } from "./icons/SearchIcon";
 
 const NavBar = () => {
-  const { getItemCount } = useCart();
-
-  const links = [
-    { label: "Products", href: "/products" },
-    { label: "Admin", href: "/admin" },
-  ];
-
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const handleToggleNavBar = () => {
+    console.log(isOpen);
+    setIsOpen(!isOpen);
+  };
   return (
-    <Flex p="4" className="border-b" justify="between" role="navigation">
-      <Flex gap="2" align="start">
-        <Text className="font-medium">
-          <Link to="/">
-            <MdHome size={24} color="#000" />
+    <>
+      <nav className="bg-white border-gray-200 ">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          <Link to="/" className="flex justify-center gap-4">
+            <h1 className="self-center text-2xl font-semibold whitespace-nowrap text-black">
+              E-commerce
+            </h1>
           </Link>
-        </Text>
-        <ul className="flex space-x-8 ml-10">
-          {links.map((link) => (
-            <li key={link.href}>
-              <NavLink
-                to={link.href}
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-zinc-800"
-                    : "text-zinc-700 hover:text-blue-500"
-                }
-              >
-                {link.label}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </Flex>
-      <Flex gap="2" align="center">
-        <Flex align="center" gap="1">
-          <AiOutlineShoppingCart />
-          <Badge role="status">{getItemCount()}</Badge>
-        </Flex>
-        <LanguageSelector />
-        <AuthStatus />
-      </Flex>
-    </Flex>
+
+          <div className="flex md:order-2">
+            <button
+              onClick={handleToggleNavBar}
+              type="button"
+              data-collapse-toggle="navbar-search"
+              aria-controls="navbar-search"
+              aria-expanded="false"
+              className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1"
+            >
+              <SearchIcon />
+            </button>
+            <div className="relative  hidden md:flex justify-center gap-4 ">
+              <LanguageSelector />
+              <SearchInput />
+              <AuthStatus />
+            </div>
+            <button
+              onClick={handleToggleNavBar}
+              data-collapse-toggle="navbar-search"
+              type="button"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              aria-controls="navbar-search"
+              aria-expanded="false"
+            >
+              <HamburgIcon />
+            </button>
+          </div>
+          <div
+            className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
+              isOpen ? "block " : "hidden"
+            }`}
+            id="navbar-search"
+          >
+            <div className="relative mt-3 flex flex-col md:hidden items-end gap-4">
+              <SearchInput />
+              <AuthStatus />
+              <LanguageSelector />
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 };
 

@@ -6,7 +6,7 @@ export const LogoutButton = () => {
 
   return (
     <Button
-      color="gray"
+      color="red"
       variant="soft"
       onClick={() =>
         logout({ logoutParams: { returnTo: window.location.origin } })
