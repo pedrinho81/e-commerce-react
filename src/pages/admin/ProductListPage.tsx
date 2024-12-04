@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { Product } from "../../entities";
 
-const ProductListPage = withAuthenticationRequired(() => {
+export const AdminProductListPage = withAuthenticationRequired(() => {
   const { data: products, isLoading, error } = useProducts();
 
   const renderProducts = () => {
@@ -55,4 +55,3 @@ const useProducts = () =>
     queryFn: () => axios.get("/products").then((res) => res.data),
   });
 
-export default ProductListPage;

@@ -1,7 +1,7 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 
-const AdminHomePage = withAuthenticationRequired(() => {
+export const AdminHomePage = withAuthenticationRequired(() => {
   return (
     <div>
       <h1>Admin Area</h1>
@@ -9,5 +9,3 @@ const AdminHomePage = withAuthenticationRequired(() => {
     </div>
   );
 });
-
-export default AdminHomePage;

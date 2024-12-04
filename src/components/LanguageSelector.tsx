@@ -10,7 +10,7 @@ const LanguageSelector = () => {
       defaultValue={currentLanguage}
       onValueChange={(lang) => changeLanguage(lang as Language)}
     >
-      <Select.Trigger />
+      <Select.Trigger className="max-w-16" />
       <Select.Content>
         <Select.Item value="en">EN</Select.Item>
         <Select.Item value="es">ES</Select.Item>

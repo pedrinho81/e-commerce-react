@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ProductForm } from "../../features/order/components/products/ProductForm";
 
-const NewProductPage = withAuthenticationRequired(
+export const NewProductPage = withAuthenticationRequired(
   () => {
     const navigate = useNavigate();
 
@@ -25,4 +25,3 @@ const NewProductPage = withAuthenticationRequired(
   }
 );
 
-export default NewProductPage;

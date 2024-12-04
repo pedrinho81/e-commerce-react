@@ -6,7 +6,7 @@ const Layout = () => {
   return (
     <>
       <NavBar />
-      <main className="prose p-5">
+      <main className="prose max-w-screen-xl mx-auto p-4 ">
         <Outlet />
         <Toaster />
       </main>

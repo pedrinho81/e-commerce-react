@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ProductForm } from "../../features/order/components/products/ProductForm";
 import useProduct from "../../hooks/useProduct";
 
-const EditProductPage = withAuthenticationRequired(() => {
+export const EditProductPage = withAuthenticationRequired(() => {
   const navigate = useNavigate();
   const params = useParams();
   const productId = parseInt(params.id!);
@@ -33,4 +33,3 @@ const EditProductPage = withAuthenticationRequired(() => {
   );
 });
 
-export default EditProductPage;

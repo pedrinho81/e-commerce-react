@@ -1,7 +1,7 @@
 import Layout from './pages/Layout';
 import Providers from './providers';
 
-function App() {
+export function App() {
   return (
     <Providers>
       <Layout />
@@ -9,4 +9,3 @@ function App() {
   );
 }
 
-export default App;

@@ -5,13 +5,13 @@ import { LogoutButton } from "./LogoutButton";
 
 export const AuthStatus = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-
+ console.log(user)
   if (isLoading) return <div>Loading...</div>;
-
+  //TODO:: Show 
   if (isAuthenticated)
     return (
       <div className="flex space-x-2 items-center">
-        <Text>{user!.name}</Text>
+        <img className="w-8 h-8 rounded-full" src={user?.picture} />
         <LogoutButton />
       </div>
     );

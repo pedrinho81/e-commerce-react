@@ -6,7 +6,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { QuantitySelector } from "../features/order/components/products/QuantitySelector";
 import { Category, Product } from "../entities";
 
-function BrowseProducts() {
+export function BrowseProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isProductsLoading, setProductsLoading] = useState(false);
@@ -131,4 +131,3 @@ function BrowseProducts() {
   );
 }
 
-export default BrowseProducts;
