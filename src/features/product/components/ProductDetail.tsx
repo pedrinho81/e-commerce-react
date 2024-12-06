@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Product } from "../../../../entities";
+import { Product } from "../../../entities";
 
 export const ProductDetail = ({ productId }: { productId: number }) => {
   //TODO:: USE USEQUERY INSTEAD STATES AND USEEFFECTS

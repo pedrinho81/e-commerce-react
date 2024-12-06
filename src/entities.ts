@@ -4,14 +4,12 @@ export type User = {
   isAdmin?: boolean;
 };
 
-export type Category = {
-  id: number;
-  name: string;
-};
+export type Category = string
 
 export type Product = {
   id: number;
-  name: string;
+  title: string;
+  image: string;
   price: number;
-  categoryId: number;
+  category: Category;
 };

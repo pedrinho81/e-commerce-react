@@ -3,7 +3,7 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
-import { ProductDetail } from "../../src/features/order/components/products/ProductDetail";
+import { ProductDetail } from "../../src/features/product/components/ProductDetail";
 import { server } from "../mocks/server";
 import { http, HttpResponse, delay } from "msw";
 import { db } from "../mocks/db";

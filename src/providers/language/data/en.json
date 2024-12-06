@@ -2,5 +2,9 @@
   "welcome": "Welcome",
   "new_product": "New Product",
   "edit_product": "Edit Product",
-  "search": "Search"
+  "search": "Search",
+  "home-page": "Home",
+  "order-by": "Order by id",
+  "ascending": "Ascending",
+  "descending": "Descending"
 }

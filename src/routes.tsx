@@ -12,10 +12,11 @@ import { HomePage } from "./pages/HomePage.tsx";
 const routes: RouteObject[] = [
   {
     path: "/",
+    
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <HomePage /> },
+      { index: true, element: <HomePage />,  },
       { path: "products/:id", element: <ProductDetailPage /> },
       {
         path: "admin",

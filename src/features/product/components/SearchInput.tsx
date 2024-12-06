@@ -1,15 +1,20 @@
 import { TextField } from "@radix-ui/themes";
-import { SearchIcon } from "./icons/SearchIcon";
-import useLanguage from "../hooks/useLanguage";
+import { SearchIcon } from "../../../components/icons/SearchIcon";
+import useLanguage from "../../../hooks/useLanguage";
 
-export function SearchInput() {
+interface SearchInputProps {
+  setSearch: (search: string) => void;
+}
+
+export function SearchInput({ setSearch }: SearchInputProps) {
   const { getLabel } = useLanguage();
   return (
     <>
       <TextField.Root radius="large" size={"3"}>
-        <TextField.Slot  className="bg-inherit">
+        <TextField.Slot className="bg-inherit">
           <SearchIcon />
           <TextField.Input
+            onChange={({ target }) => setSearch(target.value)}
             autoFocus
             placeholder={getLabel("search")}
             size="3"

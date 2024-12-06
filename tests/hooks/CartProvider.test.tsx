@@ -1,5 +1,5 @@
 import { renderHook, act } from "@testing-library/react";
-import { useCart } from "../../src/hooks/useCart";
+import { useCart } from "../../src/features/cart/hooks/useCart";
 import { CartProvider } from "../../src/providers/CartProvider";
 import { db } from "../mocks/db";
 import { Product } from "../../src/entities";

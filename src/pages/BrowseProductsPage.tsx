@@ -3,8 +3,9 @@ import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { QuantitySelector } from "../features/order/components/products/QuantitySelector";
+import { QuantitySelector } from "../features/cart/components/QuantitySelector";
 import { Category, Product } from "../entities";
+import { CategoriesEnum } from "../features/categories/hooks/useCategories";
 
 export function BrowseProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -62,10 +63,10 @@ export function BrowseProducts() {
         <Select.Content>
           <Select.Group>
             <Select.Label>Category</Select.Label>
-            <Select.Item value="all">All</Select.Item>
+            <Select.Item value={CategoriesEnum.ALL}></Select.Item>
             {categories?.map((category) => (
-              <Select.Item key={category.id} value={category.id.toString()}>
-                {category.name}
+              <Select.Item key={category} value={category}>
+                {category}
               </Select.Item>
             ))}
           </Select.Group>
@@ -80,7 +81,7 @@ export function BrowseProducts() {
     if (errorProducts) return <div>Error: {errorProducts}</div>;
 
     const visibleProducts = selectedCategoryId
-      ? products.filter((p) => p.categoryId === selectedCategoryId)
+      ? products.filter((p) => p.category === selectedCategoryId)
       : products;
 
     return (

@@ -3,13 +3,13 @@ import { Box, Button, Select, TextField } from "@radix-ui/themes";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Product } from "../../../../entities";
-import useCategories from "../../../../hooks/useCategories";
+import { Product } from "../../../entities";
+import {useCategories} from "../../categories/hooks/useCategories";
 import {
   ProductFormData,
   productFormSchema,
-} from "../../../../validationSchemas/productSchema";
-import ErrorMessage from "../../../../components/ErrorMessage";
+} from "../../../validationSchemas/productSchema";
+import ErrorMessage from "../../../components/ErrorMessage";
 
 interface Props {
   product?: Product;
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const ProductForm = ({ product, onSubmit }: Props) => {
-  const { data: categories, isLoading } = useCategories();
+  const { categories, isLoadingCategories } = useCategories();
   const [isSubmitting, setSubmitting] = useState(false);
 
   const {
@@ -30,7 +30,7 @@ export const ProductForm = ({ product, onSubmit }: Props) => {
     resolver: zodResolver(productFormSchema),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoadingCategories) return <div>Loading...</div>;
 
   return (
     <form
@@ -80,10 +80,10 @@ export const ProductForm = ({ product, onSubmit }: Props) => {
                 <Select.Group>
                   {categories?.map((category) => (
                     <Select.Item
-                      key={category.id}
-                      value={category.id.toString()}
+                      key={category}
+                      value={category}
                     >
-                      {category.name}
+                      {category}
                     </Select.Item>
                   ))}
                 </Select.Group>

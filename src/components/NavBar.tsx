@@ -2,19 +2,18 @@ import LanguageSelector from "./LanguageSelector";
 import { AuthStatus } from "../features/Auth/Components/AuthStatus";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { SearchInput } from "./SearchInput";
 import { HamburgIcon } from "./icons/HamburgIcon";
-import { SearchIcon } from "./icons/SearchIcon";
+import { CartQuantity } from "../features/cart/components/CartQuantity";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleToggleNavBar = () => {
-    console.log(isOpen);
     setIsOpen(!isOpen);
   };
+
   return (
     <>
-      <nav className="bg-white border-gray-200 ">
+      <nav className="bg-gray-100 border-gray-200 ">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link to="/" className="flex justify-center gap-4">
             <h1 className="self-center text-2xl font-semibold whitespace-nowrap text-black">
@@ -23,20 +22,10 @@ const NavBar = () => {
           </Link>
 
           <div className="flex md:order-2">
-            <button
-              onClick={handleToggleNavBar}
-              type="button"
-              data-collapse-toggle="navbar-search"
-              aria-controls="navbar-search"
-              aria-expanded="false"
-              className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1"
-            >
-              <SearchIcon />
-            </button>
             <div className="relative  hidden md:flex justify-center gap-4 ">
-              <LanguageSelector />
-              <SearchInput />
+              <CartQuantity />
               <AuthStatus />
+              <LanguageSelector />
             </div>
             <button
               onClick={handleToggleNavBar}
@@ -56,7 +45,7 @@ const NavBar = () => {
             id="navbar-search"
           >
             <div className="relative mt-3 flex flex-col md:hidden items-end gap-4">
-              <SearchInput />
+              <CartQuantity />
               <AuthStatus />
               <LanguageSelector />
             </div>
