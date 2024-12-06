@@ -44,7 +44,7 @@ export function HomePage() {
           skeletons.map((_, index) => (
             <Skeleton key={index} width="256px" height="340px" />
           ))}
-        {!products?.length && <Text className="text-lg">No products</Text>}
+        {!products?.length && !isProductsLoading &&  <Text className="text-lg">No products</Text>}
         {visibleProducts?.map((product) => (
           <>
             <ProductCard key={product.id} product={product} />
