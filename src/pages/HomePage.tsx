@@ -1,4 +1,4 @@
-import { Grid, Text } from "@radix-ui/themes";
+import { Grid } from "@radix-ui/themes";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -11,6 +11,7 @@ import { PageTitle } from "../components/PageTitle";
 import useLanguage from "../hooks/useLanguage";
 import { CategoriesEnum } from "../features/categories/hooks/useCategories";
 import { SortByIdSelect } from "../features/product/components/SortByIdSelect";
+import { ProductNotFound } from "../features/product/components/ProductNotFound";
 
 export function HomePage() {
   const { getLabel } = useLanguage();
@@ -44,7 +45,9 @@ export function HomePage() {
           skeletons.map((_, index) => (
             <Skeleton key={index} width="256px" height="340px" />
           ))}
-        {!products?.length && !isProductsLoading &&  <Text className="text-lg">No products</Text>}
+        {!products?.length && !isProductsLoading && (
+          <ProductNotFound />
+        )}
         {visibleProducts?.map((product) => (
           <>
             <ProductCard key={product.id} product={product} />
