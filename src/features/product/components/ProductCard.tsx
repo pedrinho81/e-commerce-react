@@ -22,14 +22,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <img
           src={product.image}
           alt={product.title}
-          style={{
-            display: "block",
-            objectFit: "fill",
-            width: "100%",
-            height: 280,
-            padding: "25px",
-            background: "transparent",
-          }}
+          className="block w-full h-[280px] p-7 object-contain lg:object-fill"
         />
       </Inset>
       <Flex direction="column" className="flex-1">
