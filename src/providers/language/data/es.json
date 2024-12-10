@@ -1,5 +1,6 @@
 {
   "welcome": "Bienvenidos",
+  "logout": "Salir",
   "new_product": "Nuevo Producto",
   "edit_product": "Editar Producto",
   "search": "Buscar",
@@ -9,5 +10,6 @@
   "descending": "descendiente",
   "description": "Descripción",
   "reviews": "reseñas",
-  "no-products-found": "No se encontraron productos."
+  "no-products-found": "No se encontraron productos.",
+  "related-products": "Productos Relacionados"
 }
