@@ -14,6 +14,11 @@ export const ProductService = {
 
     return data;
   },
+  getAllByCategory: async (category: string): Promise<Product[]> => {
+    const { data } = await api.get(`${apiProductsUrl}/category/${category}`);
+
+    return data;
+  },
   getDetail: async (id: number): Promise<Product> => {
     const { data } = await api.get(`${apiProductsUrl}/${id}`);
 
