@@ -24,7 +24,7 @@ export function HomePage() {
   if (productsError) return <div>Error: {!productsError}</div>;
 
   const renderProducts = () => {
-    const skeletons = [1, 2, 3, 4, 5];
+    const skeletons = Array.from({ length: 6 });
 
     if (productsError) return <div>Error: {!productsError}</div>;
 
@@ -45,9 +45,7 @@ export function HomePage() {
           skeletons.map((_, index) => (
             <Skeleton key={index} width="256px" height="340px" />
           ))}
-        {!products?.length && !isProductsLoading && (
-          <ProductNotFound />
-        )}
+        {!products?.length && !isProductsLoading && <ProductNotFound />}
         {visibleProducts?.map((product) => (
           <>
             <ProductCard key={product.id} product={product} />

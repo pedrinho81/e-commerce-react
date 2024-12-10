@@ -4,9 +4,11 @@ import { isAxiosError } from "axios";
 import { useState, useMemo } from "react";
 
 export const useProducts = () => {
-  const [search, setSearch] = useState<string>('');
-  const [debouncedSearch, setDebouncedSearch] = useState<string>('');
-  const [sortById, setSortById] = useState<ProductsSortEnum>(ProductsSortEnum.ASC)
+  const [search, setSearch] = useState<string>("");
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+  const [sortById, setSortById] = useState<ProductsSortEnum>(
+    ProductsSortEnum.ASC
+  );
   useMemo(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(search);
@@ -36,10 +38,17 @@ export const useProducts = () => {
       )
     : allProducts;
 
-  return { products, isProductsLoading, productsError, sortById, setSearch, setSortById, };
+  return {
+    products,
+    isProductsLoading,
+    productsError,
+    sortById,
+    setSearch,
+    setSortById,
+  };
 };
 
 export enum ProductsSortEnum {
-  ASC = 'asc',
-  DESC = 'desc'
+  ASC = "asc",
+  DESC = "desc",
 }

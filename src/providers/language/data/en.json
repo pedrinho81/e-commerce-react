@@ -6,5 +6,8 @@
   "home-page": "Home",
   "order-by": "Order by id",
   "ascending": "Ascending",
-  "descending": "Descending"
+  "descending": "Descending",
+  "description": "Description",
+  "reviews": "reviews",
+  "no-products-found": "No product(s) found."
 }

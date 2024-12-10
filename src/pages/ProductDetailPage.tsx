@@ -1,23 +1,30 @@
 import { useParams } from "react-router-dom";
-// import useProduct from "../features/product/hooks/useProducts";
+import { useProduct } from "../features/product/hooks/useProduct";
+import { ProductNotFound } from "../features/product/components/ProductNotFound";
+import Skeleton from "react-loading-skeleton";
+import { ProductDetails } from "../features/product/components/ProductDetail";
 
 export const ProductDetailPage = () => {
-  // const params = useParams();
-  // const productId = parseInt(params.id!);
-  // const { data: product, isLoading, error } = useProduct(productId);
+  const params = useParams();
+  const productId = parseInt(params.id!);
+  const { product, isProductLoading, productError } = useProduct(productId);
 
-  // if (isLoading) return <div>Loading...</div>;
+  if (isProductLoading)
+    return (
+      <div className="lg:grid grid-cols-2 gap-10">
+        <Skeleton width="w-full" height="500px" />
+        <div className="hidden lg:block">
+          <Skeleton width="w-full" height="340px" />
+        </div>
+      </div>
+    );
+  if (productError) return <div>Error: Unexpected error</div>;
 
-  // if (error) return <div>Error: {error.message}</div>;
-
-  // if (!product) return <div>The given product was not found.</div>;
+  if (!product) return <ProductNotFound />;
 
   return (
-    <></>
-    // <div>
-    //   <h1>{product.name}</h1>
-    //   <p>{"$" + product.price}</p>
-    // </div>
+    <>
+      <ProductDetails product={product} />
+    </>
   );
 };
-

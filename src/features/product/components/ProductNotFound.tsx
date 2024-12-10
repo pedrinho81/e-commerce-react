@@ -1,4 +1,5 @@
 import { Box, Text } from "@radix-ui/themes";
+import { Translate } from "../../../components/Translate";
 
 interface ProductNotFoundProps {
   className?: string;
@@ -15,7 +16,9 @@ export function ProductNotFound({ className }: ProductNotFoundProps) {
           className="w-72 h-72"
           alt="not-found-gif"
         />
-        <Text className="text-lg">No products found.</Text>
+        <Text className="text-lg">
+          <Translate labelId="no-products-found" />
+        </Text>
       </Box>
     </>
   );

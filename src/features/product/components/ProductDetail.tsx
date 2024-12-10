@@ -1,40 +1,40 @@
-import { useEffect, useState } from "react";
+import { Box, Flex, Strong, Text, Tooltip } from "@radix-ui/themes";
 import { Product } from "../../../entities";
+import { QuantitySelector } from "../../cart/components/QuantitySelector";
+import { priceFormat } from "../../../utils/priceFormat";
+import { ProductRating } from "./ProductRating";
+import { ImageMagnifier } from "../../../components/ImageMagnifier";
+import { Translate } from "../../../components/Translate";
 
-export const ProductDetail = ({ productId }: { productId: number }) => {
-  //TODO:: USE USEQUERY INSTEAD STATES AND USEEFFECTS
-  const [product, setProduct] = useState<Product | undefined>(
-    undefined
-  );
-  const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+interface ProductCardProps {
+  product: Product;
+}
 
-  useEffect(() => {
-    if (!productId) {
-      setError("Invalid ProductId");
-      return;
-    }
-
-    setLoading(true);
-    fetch("/products/" + productId)
-      .then((res) => res.json())
-      .then((data) => setProduct(data))
-      .catch((err) => setError((err as Error).message))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (isLoading) return <div>Loading...</div>;
-
-  if (error) return <div>Error: {error}</div>;
-
-  if (!product) return <div>The given product was not found.</div>;
-
+export function ProductDetails({ product }: ProductCardProps) {
   return (
-    <div>
-      <h1>Product Detail</h1>
-      <div>Name: {product.name}</div>
-      <div>Price: ${product.price}</div>
-    </div>
+    <Box className="flex flex-col lg:grid lg:grid-cols-2">
+      <ImageMagnifier
+        alt={product.title}
+        src={product.image}
+        className="max-w-96 max-h-96 mx-auto"
+      />
+      <Flex direction="column" className="flex-1">
+        <Box className="overflow-hidden flex flex-col gap-1 items-start">
+          <Tooltip content={product.title} className="flex-1">
+            <Text as="p">{product.title}</Text>
+          </Tooltip>
+          <Strong>{priceFormat(product.price)}</Strong>
+        </Box>
+        <hr className="my-2" />
+        <small className="text-gray-800">
+          <Translate labelId="description" />
+        </small>
+        <Text className="text-sm text-gray-800">{product.description} </Text>
+        <hr className="my-2" />
+        <ProductRating rating={product.rating} />
+        <hr className="my-2" />
+        <QuantitySelector product={product} />
+      </Flex>
+    </Box>
   );
-};
-
+}

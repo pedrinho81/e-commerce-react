@@ -14,4 +14,9 @@ export const ProductService = {
 
     return data;
   },
+  getDetail: async (id: number): Promise<Product> => {
+    const { data } = await api.get(`${apiProductsUrl}/${id}`);
+
+    return data;
+  },
 };
