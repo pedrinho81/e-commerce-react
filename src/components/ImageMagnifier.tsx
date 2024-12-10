@@ -43,10 +43,10 @@ export const ImageMagnifier = ({
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block ">
       <img
         src={src}
-        className={className}
+        className={`${className} cursor-cell shadow-[0px_5px_10px_0px_#2b6cb0] rounded-lg bg-transparent`}
         alt={alt}
         onMouseEnter={(e) => mouseEnter(e)}
         onMouseLeave={(e) => mouseLeave(e)}
@@ -72,6 +72,8 @@ export const ImageMagnifier = ({
           }px`,
           backgroundPositionX: `${-x * zoomLevel + magnifierWidth / 2}px`,
           backgroundPositionY: `${-y * zoomLevel + magnifierHeight / 2}px`,
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.25)", // Shadow effect
+
         }}
       />
     </div>
