@@ -15,7 +15,7 @@ export const useProduct = (id: number) => {
       else return "An unexpected error occurred";
     },
   });
-  console.log(product);
+
   return {
     product,
     isProductLoading,
