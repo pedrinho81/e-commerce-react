@@ -3,19 +3,25 @@ import { Box, Button, Select, TextField } from "@radix-ui/themes";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Product } from "../../../entities";
-import {useCategories} from "../../categories/hooks/useCategories";
+import { Product } from "../../entities";
+import { useCategories } from "../categories/hooks/useCategories";
 import {
   ProductFormData,
   productFormSchema,
-} from "../../../validationSchemas/productSchema";
-import ErrorMessage from "../../../components/ErrorMessage";
+} from "./schemas/productSchema";
+import ErrorMessage from "../../components/ErrorMessage";
 
 interface Props {
   product?: Product;
   onSubmit: (product: ProductFormData) => Promise<void>;
 }
 
+{
+  /*
+   //TODO:: Translate all strings
+    //TODO:: MANIPULATE IMGS
+  */
+}
 export const ProductForm = ({ product, onSubmit }: Props) => {
   const { categories, isLoadingCategories } = useCategories();
   const [isSubmitting, setSubmitting] = useState(false);
@@ -49,9 +55,14 @@ export const ProductForm = ({ product, onSubmit }: Props) => {
     >
       <Box>
         <TextField.Root className="max-w-sm">
-          <TextField.Input autoFocus placeholder="Name" {...register("name")} size="3" />
+          <TextField.Input
+            autoFocus
+            placeholder="Title"
+            {...register("title")}
+            size="3"
+          />
         </TextField.Root>
-        <ErrorMessage error={errors.name} />
+        <ErrorMessage error={errors.title} />
       </Box>
       <Box>
         <TextField.Root className="w-24">
@@ -67,22 +78,19 @@ export const ProductForm = ({ product, onSubmit }: Props) => {
       </Box>
       <Box>
         <Controller
-          name="categoryId"
+          name="category"
           control={control}
           render={({ field }) => (
             <Select.Root
               size="3"
-              defaultValue={product?.categoryId.toString() || ""}
+              defaultValue={product?.category || ""}
               onValueChange={(value) => field.onChange(+value)}
             >
               <Select.Trigger aria-label="Category" placeholder="Category" />
               <Select.Content>
                 <Select.Group>
                   {categories?.map((category) => (
-                    <Select.Item
-                      key={category}
-                      value={category}
-                    >
+                    <Select.Item key={category} value={category}>
                       {category}
                     </Select.Item>
                   ))}
@@ -91,7 +99,7 @@ export const ProductForm = ({ product, onSubmit }: Props) => {
             </Select.Root>
           )}
         />
-        <ErrorMessage error={errors.categoryId} />
+        <ErrorMessage error={errors.category} />
       </Box>
       <Button size="3" disabled={isSubmitting}>
         Submit
@@ -99,4 +107,3 @@ export const ProductForm = ({ product, onSubmit }: Props) => {
     </form>
   );
 };
-

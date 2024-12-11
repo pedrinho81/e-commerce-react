@@ -31,8 +31,8 @@ export const useProducts = ({ category = "" }: UseProductsProps = {}) => {
     queryKey: ["products", sortById, category],
     queryFn: async () =>
       category
-        ? await ProductService.getAllByCategory(category)
-        : await ProductService.getAll(sortById),
+        ? await ProductService.GetAllByCategory(category)
+        : await ProductService.GetAll(sortById),
     onError: (err) => {
       if (isAxiosError(err)) return err.message;
       else return "An unexpected error occurred";

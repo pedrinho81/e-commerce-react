@@ -1,34 +1,32 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { Heading } from "@radix-ui/themes";
-import axios from "axios";
-import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { ProductForm } from "../../features/product/components/ProductForm";
-// import useProduct from "../../features/product/hooks/useProducts";
+import { ProductForm } from "../../features/admin/ProductForm";
+import { useProduct } from "../../features/product/hooks/useProduct";
+import { AdminProductService } from "../../features/admin/services/product.service";
 
 export const EditProductPage = withAuthenticationRequired(() => {
   const navigate = useNavigate();
   const params = useParams();
-  // const productId = parseInt(params.id!);
-  // const { data: product, isLoading, error } = useProduct(productId);
+  const productId = parseInt(params.id!);
+  const { product, isProductLoading, productError } = useProduct(productId);
 
-  // if (isLoading) return <div>Loading...</div>;
+  if (isProductLoading) return <div>Loading...</div>;
 
-  // if (error) return <div>Error: {error.message}</div>;
+  if (productError) return <div>Error: {!productError}</div>;
 
-  // if (!product) return <div>The given product was not found.</div>;
+  if (!product) return <div>The given product was not found.</div>;
 
   return (
     <div>
-      {/* <Heading mb="4">Edit Product</Heading>
+      <Heading mb="4">Edit Product</Heading>
       <ProductForm
         product={product}
         onSubmit={async (product) => {
-          await axios.put("/products/" + productId, product);
-          toast.success("Changes were successfully saved.");
+          await AdminProductService.Update(product);
           navigate("/admin/products");
         }}
-      /> */}
+      />
     </div>
   );
 });

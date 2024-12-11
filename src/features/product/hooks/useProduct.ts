@@ -9,7 +9,7 @@ export const useProduct = (id: number) => {
     error: productError,
   } = useQuery({
     queryKey: ["product", id],
-    queryFn: async () => await ProductService.getDetail(id),
+    queryFn: async () => await ProductService.GetDetail(id),
     onError: (err) => {
       if (isAxiosError(err)) return err.message;
       else return "An unexpected error occurred";

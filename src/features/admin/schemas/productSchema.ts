@@ -2,7 +2,7 @@ import * as z from "zod";
 
 export const productFormSchema = z.object({
   id: z.number().optional(),
-  name: z.string().min(1, "Name is required").max(255),
+  title: z.string().min(1, "Name is required").max(255),
   price: z.coerce
     .number({
       required_error: "Price is required",
@@ -10,7 +10,9 @@ export const productFormSchema = z.object({
     })
     .min(1)
     .max(1000),
-  categoryId: z.number({
+  description: z.string({required_error: "Description is required"}),
+  //  todo:: EDIT IMG
+  category: z.string({
     required_error: "Category is required",
   }),
 });

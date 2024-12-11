@@ -6,7 +6,7 @@ export const api = axios.create({
 })
 
 api.interceptors.response.use(
-  (response) => response, // Pass through successful responses
+  (response) => response, 
   (error) => {
     if (isAxiosError(error)) {
       toast.error(error.response?.data?.message || error.message);
@@ -14,7 +14,6 @@ api.interceptors.response.use(
       toast.error('An unexpected error occurred');
     }
 
-    // Re-throw the error to allow specific handling if needed
     return Promise.reject(error);
   }
 );

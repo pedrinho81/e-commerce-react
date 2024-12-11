@@ -9,7 +9,7 @@ export const useCategories = () => {
     error: categoriesError,
   } = useQuery<Category[], Error>({
     queryKey: ["categories"],
-    queryFn: async () => await CategoryService.getAll(),
+    queryFn: async () => await CategoryService.GetAll(),
   });
   return { categories, isLoadingCategories, categoriesError };
 };

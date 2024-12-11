@@ -5,7 +5,7 @@ import { ProductsSortEnum } from "../hooks/useProducts";
 const apiProductsUrl = "/products";
 
 export const ProductService = {
-  getAll: async (sort: ProductsSortEnum): Promise<Product[]> => {
+  GetAll: async (sort: ProductsSortEnum): Promise<Product[]> => {
     const { data } = await api.get(apiProductsUrl, {
       params: {
         sort,
@@ -14,12 +14,12 @@ export const ProductService = {
 
     return data;
   },
-  getAllByCategory: async (category: string): Promise<Product[]> => {
+  GetAllByCategory: async (category: string): Promise<Product[]> => {
     const { data } = await api.get(`${apiProductsUrl}/category/${category}`);
 
     return data;
   },
-  getDetail: async (id: number): Promise<Product> => {
+  GetDetail: async (id: number): Promise<Product> => {
     const { data } = await api.get(`${apiProductsUrl}/${id}`);
 
     return data;
