@@ -1,15 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, Select, TextField } from "@radix-ui/themes";
+import { Box, Button, Flex, Select, TextField } from "@radix-ui/themes";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { Product } from "../../entities";
-import { useCategories } from "../categories/hooks/useCategories";
-import {
-  ProductFormData,
-  productFormSchema,
-} from "./schemas/productSchema";
-import ErrorMessage from "../../components/ErrorMessage";
+import toast, { LoaderIcon } from "react-hot-toast";
+import { Product } from "../../../entities";
+import { useCategories } from "../../categories/hooks/useCategories";
+import { ProductFormData, productFormSchema } from "../schemas/productSchema";
+import ErrorMessage from "../../../components/ErrorMessage";
+import { Translate } from "../../../components/Translate";
 
 interface Props {
   product?: Product;
@@ -36,7 +34,12 @@ export const ProductForm = ({ product, onSubmit }: Props) => {
     resolver: zodResolver(productFormSchema),
   });
 
-  if (isLoadingCategories) return <div>Loading...</div>;
+  if (isLoadingCategories)
+    return (
+      <div>
+        <Translate labelId="loading" />
+      </div>
+    );
 
   return (
     <form
@@ -101,9 +104,11 @@ export const ProductForm = ({ product, onSubmit }: Props) => {
         />
         <ErrorMessage error={errors.category} />
       </Box>
-      <Button size="3" disabled={isSubmitting}>
-        Submit
-      </Button>
+      <Flex align={"center"} gap={"2"}>
+        <Button size="3" disabled={isSubmitting}>
+          {isSubmitting ? <LoaderIcon /> : <Translate labelId="submit" />}
+        </Button>
+      </Flex>
     </form>
   );
 };

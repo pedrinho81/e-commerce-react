@@ -4,7 +4,7 @@ import {
   waitForElementToBeRemoved,
 } from "@testing-library/react";
 import { HttpResponse, http } from "msw";
-import { ProductList } from "../../src/features/admin/ProductList";
+import { ProductList } from "../../src/features/admin/product/ProductList";
 import AllProviders from "../AllProviders";
 import { db } from "../mocks/db";
 import { server } from "../mocks/server";

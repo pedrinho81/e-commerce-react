@@ -1,7 +1,7 @@
 import { Button, Flex, Table } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
-import { useProducts } from "../product/hooks/useProducts";
-import { SearchInput } from "../product/components/SearchInput";
+import { useProducts } from "../../product/hooks/useProducts";
+import { SearchInput } from "../../product/components/SearchInput";
 
 export const ProductListAdmin = () => {
   const { products, isProductsLoading, productsError, setSearch } =

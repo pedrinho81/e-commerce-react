@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { ProductForm } from "../../src/features/admin/ProductForm";
+import { ProductForm } from "../../src/features/admin/product/ProductForm";
 import { Category, Product } from "../../src/entities";
 import AllProviders from "../AllProviders";
 import { db } from "../mocks/db";

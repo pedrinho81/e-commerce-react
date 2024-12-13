@@ -11,5 +11,8 @@
   "description": "Description",
   "reviews": "reviews",
   "no-products-found": "No product(s) found.",
-  "related-products": "Related Products"
+  "related-products": "Related Products",
+  "loading": "Loading...",
+  "submit": "Submit",
+  "edit-product": "Edit product"
 }
