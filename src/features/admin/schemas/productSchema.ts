@@ -10,8 +10,9 @@ export const productFormSchema = z.object({
     })
     .min(1)
     .max(1000),
-  description: z.string({required_error: "Description is required"}),
-  //  todo:: EDIT IMG
+  description: z
+    .string({ required_error: "Description is required" })
+    .min(20, "Description must contain at least 20 character(s)"),
   category: z.string({
     required_error: "Category is required",
   }),

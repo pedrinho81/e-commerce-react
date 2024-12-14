@@ -14,12 +14,6 @@ interface Props {
   onSubmit: (product: ProductFormData) => Promise<void>;
 }
 
-{
-  /*
-   //TODO:: Translate all strings
-    //TODO:: MANIPULATE IMGS
-  */
-}
 export const ProductForm = ({ product, onSubmit }: Props) => {
   const { categories, isLoadingCategories } = useCategories();
   const [isSubmitting, setSubmitting] = useState(false);
@@ -71,6 +65,7 @@ export const ProductForm = ({ product, onSubmit }: Props) => {
         <TextField.Root className="w-24">
           <TextField.Slot>$</TextField.Slot>
           <TextField.Input
+            type="number"
             placeholder="Price"
             maxLength={5}
             size="3"
@@ -87,7 +82,7 @@ export const ProductForm = ({ product, onSubmit }: Props) => {
             <Select.Root
               size="3"
               defaultValue={product?.category || ""}
-              onValueChange={(value) => field.onChange(+value)}
+              onValueChange={(value) => field.onChange(value)}
             >
               <Select.Trigger aria-label="Category" placeholder="Category" />
               <Select.Content>
@@ -103,6 +98,14 @@ export const ProductForm = ({ product, onSubmit }: Props) => {
           )}
         />
         <ErrorMessage error={errors.category} />
+      </Box>
+      <Box>
+        <textarea
+          className="resize-y bg-transparent border-2 rounded-md md:w-96 p-2 min-h-28"
+          {...register("description")}
+          placeholder="Description"
+        />
+        <ErrorMessage error={errors.description} />
       </Box>
       <Flex align={"center"} gap={"2"}>
         <Button size="3" disabled={isSubmitting}>

@@ -14,5 +14,7 @@
   "related-products": "Productos Relacionados",
   "loading": "Cargando...",
   "submit": "Entregar",
-  "edit-product": "Editar producto"
+  "products": "Productos",
+  "edit": "Editar",
+  "name": "Nombre"
 }

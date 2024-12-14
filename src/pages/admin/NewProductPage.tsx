@@ -1,8 +1,8 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { Heading } from "@radix-ui/themes";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ProductForm } from "../../features/admin/product/ProductForm";
+import { AdminProductService } from "../../features/admin/services/product.service";
 
 export const NewProductPage = withAuthenticationRequired(
   () => {
@@ -11,9 +11,9 @@ export const NewProductPage = withAuthenticationRequired(
     return (
       <div>
         <Heading mb="4">New Product</Heading>
-        <ProductForm
+        <ProductForm 
           onSubmit={async (product) => {
-            await axios.post("/products", product);
+            await AdminProductService.Create(product)
             navigate("/admin/products");
           }}
         />

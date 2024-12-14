@@ -14,5 +14,8 @@
   "related-products": "Related Products",
   "loading": "Loading...",
   "submit": "Submit",
-  "edit-product": "Edit product"
+  "edit-product": "Edit product",
+  "products": "Products",
+  "edit": "Edit",
+  "name": "Name"
 }
